@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.gestionclinique.controllers.PatientController"
+      style="-fx-background-color: linear-gradient(to bottom, #f0f4f8, #e2e8f0); -fx-padding: 20;">
+
+    <Label text="🏥 GESTION CLINIQUE - FORMULAIRE PATIENT"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-alignment: center;"/>
+
+    <Separator/>
+
+    <GridPane hgap="15" vgap="12" style="-fx-padding: 10;">
+        <padding><Insets top="10" bottom="10" left="10" right="10"/></padding>
+
+        <!-- Ligne 0 -->
+        <Label text="Nom :" GridPane.rowIndex="0" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtNom" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Entrez le nom" prefWidth="250"/>
+
+        <Label text="Prénom :" GridPane.rowIndex="0" GridPane.columnIndex="2"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtPrenom" GridPane.rowIndex="0" GridPane.columnIndex="3"
+                   promptText="Entrez le prénom" prefWidth="250"/>
+
+        <!-- Ligne 1 -->
+        <Label text="Date naissance :" GridPane.rowIndex="1" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <DatePicker fx:id="dpDateNaissance" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250"/>
+
+        <Label text="Téléphone :" GridPane.rowIndex="1" GridPane.columnIndex="2"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtTelephone" GridPane.rowIndex="1" GridPane.columnIndex="3"
+                   promptText="06 XX XX XX XX" prefWidth="250"/>
+
+        <!-- Ligne 2 -->
+        <Label text="Adresse :" GridPane.rowIndex="2" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtAdresse" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                   promptText="Adresse complète" prefWidth="250" GridPane.columnSpan="3"/>
+
+        <!-- Ligne 3 -->
+        <Label text="Antécédents :" GridPane.rowIndex="3" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextArea fx:id="txtAntecedents" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                  promptText="Antécédents médicaux" prefHeight="80" prefWidth="550" GridPane.columnSpan="3"/>
+
+        <!-- Ligne 4 -->
+        <Label text="Docteur :" GridPane.rowIndex="4" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <ComboBox fx:id="cmbDocteur" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="250"/>
+
+        <Label text="Infirmière :" GridPane.rowIndex="4" GridPane.columnIndex="2"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <ComboBox fx:id="cmbInfirmiere" GridPane.rowIndex="4" GridPane.columnIndex="3" prefWidth="250"/>
+
+        <!-- Ligne 5 -->
+        <Label text="Tension (mmHg) :" GridPane.rowIndex="5" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1">
+            <TextField fx:id="txtTensionSyst" promptText="Systolique" prefWidth="100"/>
+            <Label text="/" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <TextField fx:id="txtTensionDiast" promptText="Diastolique" prefWidth="100"/>
+        </HBox>
+
+        <!-- Ligne 6 -->
+        <Label text="Glycémie (g/L) :" GridPane.rowIndex="6" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtGlycemie" GridPane.rowIndex="6" GridPane.columnIndex="1"
+                   promptText="Ex: 1.05" prefWidth="150"/>
+
+        <!-- Ligne 7 -->
+        <Label text="Température (°C) :" GridPane.rowIndex="7" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <TextField fx:id="txtTemperature" GridPane.rowIndex="7" GridPane.columnIndex="1"
+                   promptText="Ex: 36.8" prefWidth="150"/>
+
+        <!-- Ligne 8 -->
+        <Label text="Statut :" GridPane.rowIndex="8" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <CheckBox fx:id="chkUrgent" GridPane.rowIndex="8" GridPane.columnIndex="1"
+                  text="⚠️ CAS URGENT" style="-fx-text-fill: red; -fx-font-weight: bold;"/>
+    </GridPane>
+
+    <Separator/>
+
+    <!-- Boutons -->
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="💾 ENREGISTRER" onAction="#enregistrerPatient"
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 5;"/>
+        <Button text="🔄 RÉINITIALISER" onAction="#reinitialiserFormulaire"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 5;"/>
+        <Button text="📋 VOIR FILE D'ATTENTE" onAction="#voirFileAttente"
+                style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="❌ QUITTER" onAction="#quitterApplication"
+                style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30; -fx-background-radius: 5;"/>
+    </HBox>
+
+    <ProgressIndicator fx:id="progressIndicator" visible="false" maxWidth="40" maxHeight="40"/>
+</VBox>

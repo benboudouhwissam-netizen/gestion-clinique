@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.FileAttenteController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="🏥 FILE D'ATTENTE - PRIORITÉ PATIENTS URGENTS" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Separator/>
+
+    <HBox spacing="10">
+        <Label text="🔴 URGENT" style="-fx-text-fill: red; -fx-font-weight: bold;"/>
+        <Label text="🟢 NORMAL" style="-fx-text-fill: green; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🔄 RAFRAÎCHIR" onAction="#rafraichirListe"/>
+    </HBox>
+
+    <TableView fx:id="tableViewConsultations" prefHeight="400">
+        <columns>
+            <TableColumn text="Priorité" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="prioriteTexte" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Patient" prefWidth="200">
+                <cellValueFactory>
+                    <PropertyValueFactory property="patientNomComplet" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Date consultation" prefWidth="180">
+                <cellValueFactory>
+                    <PropertyValueFactory property="dateConsultationFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Tension" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="tensionFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Glycémie" prefWidth="80">
+                <cellValueFactory>
+                    <PropertyValueFactory property="glycemieFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Statut" prefWidth="120">
+                <cellValueFactory>
+                    <PropertyValueFactory property="statut" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <Separator/>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="✅ CONSULTATION TERMINÉE" onAction="#terminerConsultation" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 10 20;"/>
+        <Button text="➕ NOUVEAU PATIENT" onAction="#nouveauPatient" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 20;"/>
+        <Button text="📊 TABLEAU DE BORD" onAction="#voirTableauBord" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-padding: 10 20;"/>
+    </HBox>
+
+    <Label fx:id="lblStatistiques" style="-fx-font-size: 12px;"/>
+</VBox>
