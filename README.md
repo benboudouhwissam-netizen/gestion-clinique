@@ -1,4 +1,4 @@
-# 🏥 Gestion Clinique - Application JavaFX
+# Gestion Clinique - Application JavaFX
 
 ## Description
 Application complète de gestion clinique avec authentification et gestion des rôles (médecin, infirmier, secrétaire).  
