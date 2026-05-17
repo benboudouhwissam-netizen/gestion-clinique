@@ -8,17 +8,14 @@ import javafx.stage.Stage;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        // ⚠️ Le chemin DOIT commencer par "/" et être exact
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/patient_form.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load(), 900, 700);
-        stage.setTitle("Gestion Clinique - Formulaire Patient");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 700);
+        stage.setTitle("Clinique - Connexion");
         stage.setScene(scene);
         stage.show();
-
     }
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 }

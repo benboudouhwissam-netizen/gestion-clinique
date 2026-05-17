@@ -38,7 +38,6 @@ public class PatientController {
         });
     }
 
-    // CORRIGÉ : Charger les docteurs depuis la base
     private void chargerDocteurs() {
         Task<Void> task = new Task<Void>() {
             @Override
@@ -60,7 +59,6 @@ public class PatientController {
         new Thread(task).start();
     }
 
-    // CORRIGÉ : Charger les infirmières depuis la base
     private void chargerInfirmieres() {
         Task<Void> task = new Task<Void>() {
             @Override
@@ -84,7 +82,6 @@ public class PatientController {
 
     @FXML
     private void enregistrerPatient() {
-        // Validation des champs obligatoires
         if (txtNom.getText().isEmpty() || txtPrenom.getText().isEmpty()) {
             showAlert("Erreur", "Le nom et prénom sont obligatoires !", Alert.AlertType.ERROR);
             return;
@@ -92,54 +89,55 @@ public class PatientController {
 
         progressIndicator.setVisible(true);
 
-        Task<Boolean> sauvegardeTask = new Task<Boolean>() {
+        Task<Boolean> sauvegardeTask = new Task<>() {
             @Override
             protected Boolean call() throws Exception {
                 try (Connection conn = DatabaseConnection.getConnection()) {
-                    conn.setAutoCommit(false);
-
-                    // 1. Insérer le patient
-                    String sqlPatient = "INSERT INTO patients (nom, prenom, date_naissance, telephone, adresse, antecedents, est_urgent) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                    PreparedStatement pstmtPatient = conn.prepareStatement(sqlPatient, Statement.RETURN_GENERATED_KEYS);
-
-                    pstmtPatient.setString(1, txtNom.getText());
-                    pstmtPatient.setString(2, txtPrenom.getText());
-
-                    if (dpDateNaissance.getValue() != null) {
-                        pstmtPatient.setDate(3, Date.valueOf(dpDateNaissance.getValue()));
+                    if (patientIdEdition > 0) {
+                        // ---------- MODIFICATION ----------
+                        String sql = "UPDATE patients SET nom=?, prenom=?, date_naissance=?, telephone=?, adresse=?, antecedents=?, est_urgent=? WHERE id=?";
+                        PreparedStatement pstmt = conn.prepareStatement(sql);
+                        pstmt.setString(1, txtNom.getText());
+                        pstmt.setString(2, txtPrenom.getText());
+                        pstmt.setObject(3, dpDateNaissance.getValue() != null ? Date.valueOf(dpDateNaissance.getValue()) : null);
+                        pstmt.setString(4, txtTelephone.getText());
+                        pstmt.setString(5, txtAdresse.getText());
+                        pstmt.setString(6, txtAntecedents.getText());
+                        pstmt.setBoolean(7, chkUrgent.isSelected());
+                        pstmt.setInt(8, patientIdEdition);
+                        return pstmt.executeUpdate() > 0;
                     } else {
-                        pstmtPatient.setNull(3, Types.DATE);
+                        // ---------- CREATION ----------
+                        conn.setAutoCommit(false);
+                        String sqlPatient = "INSERT INTO patients (nom, prenom, date_naissance, telephone, adresse, antecedents, est_urgent) VALUES (?,?,?,?,?,?,?)";
+                        PreparedStatement pstmtPatient = conn.prepareStatement(sqlPatient, Statement.RETURN_GENERATED_KEYS);
+                        pstmtPatient.setString(1, txtNom.getText());
+                        pstmtPatient.setString(2, txtPrenom.getText());
+                        pstmtPatient.setObject(3, dpDateNaissance.getValue() != null ? Date.valueOf(dpDateNaissance.getValue()) : null);
+                        pstmtPatient.setString(4, txtTelephone.getText());
+                        pstmtPatient.setString(5, txtAdresse.getText());
+                        pstmtPatient.setString(6, txtAntecedents.getText());
+                        pstmtPatient.setBoolean(7, chkUrgent.isSelected());
+
+                        int affected = pstmtPatient.executeUpdate();
+                        if (affected == 0) return false;
+                        ResultSet keys = pstmtPatient.getGeneratedKeys();
+                        if (!keys.next()) return false;
+                        int newId = keys.getInt(1);
+
+                        // Insertion d'une consultation vide (ou avec constantes)
+                        String sqlConsult = "INSERT INTO consultations (patient_id, tension_systolique, tension_diastolique, glycemie, temperature) VALUES (?,?,?,?,?)";
+                        PreparedStatement pstmtConsult = conn.prepareStatement(sqlConsult);
+                        pstmtConsult.setInt(1, newId);
+                        pstmtConsult.setString(2, txtTensionSyst.getText().isEmpty() ? null : txtTensionSyst.getText());
+                        pstmtConsult.setString(3, txtTensionDiast.getText().isEmpty() ? null : txtTensionDiast.getText());
+                        pstmtConsult.setString(4, txtGlycemie.getText().isEmpty() ? null : txtGlycemie.getText());
+                        pstmtConsult.setString(5, txtTemperature.getText().isEmpty() ? null : txtTemperature.getText());
+                        pstmtConsult.executeUpdate();
+
+                        conn.commit();
+                        return true;
                     }
-
-                    pstmtPatient.setString(4, txtTelephone.getText());
-                    pstmtPatient.setString(5, txtAdresse.getText());
-                    pstmtPatient.setString(6, txtAntecedents.getText());
-                    pstmtPatient.setBoolean(7, chkUrgent.isSelected());
-
-                    int affectedRows = pstmtPatient.executeUpdate();
-                    if (affectedRows == 0) return false;
-
-                    ResultSet generatedKeys = pstmtPatient.getGeneratedKeys();
-                    if (!generatedKeys.next()) return false;
-                    int patientId = generatedKeys.getInt(1);
-
-                    // 2. Insérer la consultation
-                    String sqlConsultation = "INSERT INTO consultations (patient_id, tension_systolique, tension_diastolique, glycemie, temperature) VALUES (?, ?, ?, ?, ?)";
-                    PreparedStatement pstmtConsult = conn.prepareStatement(sqlConsultation);
-                    pstmtConsult.setInt(1, patientId);
-
-                    pstmtConsult.setString(2, txtTensionSyst.getText().isEmpty() ? null : txtTensionSyst.getText());
-                    pstmtConsult.setString(3, txtTensionDiast.getText().isEmpty() ? null : txtTensionDiast.getText());
-                    pstmtConsult.setString(4, txtGlycemie.getText().isEmpty() ? null : txtGlycemie.getText());
-                    pstmtConsult.setString(5, txtTemperature.getText().isEmpty() ? null : txtTemperature.getText());
-
-                    pstmtConsult.executeUpdate();
-
-                    conn.commit();
-                    return true;
-
-                } catch (SQLException e) {
-                    throw new Exception("Erreur base de données : " + e.getMessage());
                 }
             }
         };
@@ -147,11 +145,22 @@ public class PatientController {
         sauvegardeTask.setOnSucceeded(e -> {
             progressIndicator.setVisible(false);
             if (sauvegardeTask.getValue()) {
-                String message = chkUrgent.isSelected() ?
-                        "⚠️ Patient URGENT enregistré avec succès !" :
-                        "Patient enregistré avec succès !";
-                showAlert("Succès", message, Alert.AlertType.INFORMATION);
-                reinitialiserFormulaire();
+                if (patientIdEdition > 0) {
+                    showAlert("Succès", "Patient modifié avec succès !", Alert.AlertType.INFORMATION);
+                    // Retour à l'accueil après modification
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/accueil.fxml"));
+                        Scene scene = new Scene(loader.load(), 900, 600);
+                        Stage stage = (Stage) txtNom.getScene().getWindow();
+                        stage.setScene(scene);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    String message = chkUrgent.isSelected() ? "⚠️ Patient URGENT enregistré !" : "Patient enregistré !";
+                    showAlert("Succès", message, Alert.AlertType.INFORMATION);
+                    reinitialiserFormulaire();
+                }
             }
         });
 
@@ -162,6 +171,35 @@ public class PatientController {
 
         new Thread(sauvegardeTask).start();
     }
+    private int patientIdEdition = -1;
+
+    private void chargerPatientPourEdition() {
+        if (patientIdEdition <= 0) return;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "SELECT * FROM patients WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, patientIdEdition);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                txtNom.setText(rs.getString("nom"));
+                txtPrenom.setText(rs.getString("prenom"));
+                if (rs.getDate("date_naissance") != null)
+                    dpDateNaissance.setValue(rs.getDate("date_naissance").toLocalDate());
+                txtTelephone.setText(rs.getString("telephone"));
+                txtAdresse.setText(rs.getString("adresse"));
+                txtAntecedents.setText(rs.getString("antecedents"));
+                chkUrgent.setSelected(rs.getBoolean("est_urgent"));
+            }
+        } catch (SQLException e) {
+            showAlert("Erreur", "Impossible de charger le patient : " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public void setPatientEnEdition(int id) {
+        this.patientIdEdition = id;
+        chargerPatientPourEdition();   // charge les données existantes
+    }
+
 
     @FXML
     private void reinitialiserFormulaire() {
@@ -176,6 +214,7 @@ public class PatientController {
         txtTemperature.clear();
         dpDateNaissance.setValue(null);
         chkUrgent.setSelected(false);
+        patientIdEdition = -1;
         if (cmbDocteur != null) cmbDocteur.getSelectionModel().clearSelection();
         if (cmbInfirmiere != null) cmbInfirmiere.getSelectionModel().clearSelection();
     }

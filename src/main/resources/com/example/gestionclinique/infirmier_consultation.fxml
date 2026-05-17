@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.InfirmierController" style="-fx-padding: 20;">
+    <Label text="🩺 CONSULTATION - CONSTANTES VITALES" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label fx:id="lblPatient" style="-fx-font-size: 16px;"/>
+
+    <Separator/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Tension (mmHg) :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <TextField fx:id="txtTensionSyst" promptText="Systolique" prefWidth="80"/>
+            <Label text="/"/>
+            <TextField fx:id="txtTensionDiast" promptText="Diastolique" prefWidth="80"/>
+        </HBox>
+
+        <Label text="Glycémie (g/L) :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtGlycemie" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Ex: 1.05"/>
+
+        <Label text="Température (°C) :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtTemperature" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Ex: 36.8"/>
+
+        <Label text="Cas urgent :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <CheckBox fx:id="chkUrgent" GridPane.rowIndex="3" GridPane.columnIndex="1" text="⚡ URGENT"/>
+    </GridPane>
+
+    <!-- Bloc diagnostic (lecture seule) -->
+    <Label text="📄 DIAGNOSTIC MÉDICAL (lecture seule)" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;"/>
+    <TextArea fx:id="txtDiagnostic" editable="false" wrapText="true" prefHeight="100"/>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="💾 ENREGISTRER CONSTANTES" onAction="#enregistrerConstantes" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+        <Button text="🔙 RETOUR" onAction="#retourAccueil" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+    </HBox>
+</VBox>

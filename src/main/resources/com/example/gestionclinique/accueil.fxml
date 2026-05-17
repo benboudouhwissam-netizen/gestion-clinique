@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" alignment="CENTER" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.AccueilController">
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <Label fx:id="lblBienvenue" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <Separator/>
+
+    <GridPane hgap="20" vgap="20" alignment="CENTER">
+        <!-- Menu déroulant 1 : Gestion des patients -->
+        <Label text="Gestion patients :" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbPatients" promptText="Choisir patient" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+
+        <!-- Menu déroulant 2 : Actions disponibles selon rôle -->
+        <Label text="Actions :" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbActions" promptText="Choisir action" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+
+        <Button text="EXÉCUTER" onAction="#executerAction" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-background-color: #27ae60; -fx-text-fill: white;"/>
+    </GridPane>
+
+    <Separator/>
+
+    <Button text="DÉCONNEXION" onAction="#deconnexion" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+
+    <Label fx:id="lblStatut" style="-fx-text-fill: #7f8c8d;"/>
+</VBox>

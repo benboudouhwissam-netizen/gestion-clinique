@@ -96,6 +96,32 @@ public class FileAttenteController {
             return;
         }
 
+        // Vérifier s'il existe des patients urgents avant celui sélectionné
+        boolean urgentAvant = false;
+        for (Consultation c : consultationsList) {
+            if (c.getId() == selected.getId()) break;
+            if (c.getPriorite() == 1) { // urgent
+                urgentAvant = true;
+                break;
+            }
+        }
+
+        if (urgentAvant) {
+            showAlert("Priorité urgente", "Des patients URGENTS sont en attente avant celui-ci. Veuillez les traiter d'abord.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Si le patient sélectionné n'est pas urgent, mais qu'il y a d'autres urgents après ? Non, on autorise car les urgents sont déjà passés ?
+        // En fait, la liste est triée par priorité décroissante (urgents d'abord). Si on arrive à un patient non urgent, normalement il n'y a plus d'urgents après.
+        // On peut aussi vérifier si le patient sélectionné est non urgent et qu'il reste des urgents dans la liste (au cas où le tri ne serait pas parfait).
+        long remainingUrgents = consultationsList.stream()
+                .filter(c -> c.getPriorite() == 1 && c.getStatut().equals("EN_ATTENTE"))
+                .count();
+        if (selected.getPriorite() != 1 && remainingUrgents > 0) {
+            showAlert("Priorité urgente", "Il reste des patients URGENTS dans la file d'attente. Veuillez d'abord les consulter.", Alert.AlertType.ERROR);
+            return;
+        }
+
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {

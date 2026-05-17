@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.HistoriqueController" style="-fx-padding: 20;">
+    <Label fx:id="lblPatient" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Separator/>
+
+    <TableView fx:id="tableViewHistorique" prefHeight="500">
+        <columns>
+            <TableColumn text="Date" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="dateConsultationFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Tension (mmHg)" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="tensionFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Glycémie (g/L)" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="glycemieFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Température (°C)" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="temperatureFormatee" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Diagnostic" prefWidth="300">
+                <cellValueFactory>
+                    <PropertyValueFactory property="diagnostic" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Statut" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="statut" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="🔙 RETOUR" onAction="#retourAccueil" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 30;"/>
+    </HBox>
+</VBox>
