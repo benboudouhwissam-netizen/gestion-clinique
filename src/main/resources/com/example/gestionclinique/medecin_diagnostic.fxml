@@ -4,42 +4,44 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.MedecinController" style="-fx-padding: 20;">
-    <Label text="📋 DOSSIER MÉDICAL DU PATIENT" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-    <Label fx:id="lblPatient" style="-fx-font-size: 16px;"/>
+<ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.MedecinController">
+    <VBox spacing="15" styleClass="root" stylesheets="@/css/clinique.css" style="-fx-padding: 20;">
+        <Label text="DOSSIER MÉDICAL DU PATIENT" styleClass="label-title"/>
+        <Label fx:id="lblPatient" styleClass="label-subtitle"/>
 
-    <Separator/>
+        <Separator/>
 
-    <Label text="🩺 CONSTANTES VITALES (infirmier)" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-    <GridPane hgap="10" vgap="10" style="-fx-padding: 10 0 10 0;">
-        <Label text="Date :" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblDateConsult" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="CONSTANTES VITALES (infirmier)" styleClass="label-section"/>
+        <GridPane hgap="10" vgap="10" style="-fx-padding: 10 0 10 0;">
+            <Label text="Date :" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label-field"/>
+            <Label fx:id="lblDateConsult" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-        <Label text="Tension (mmHg) :" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblTension" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Tension (mmHg) :" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label-field"/>
+            <Label fx:id="lblTension" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-        <Label text="Glycémie (g/L) :" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblGlycemie" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Glycémie (g/L) :" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label-field"/>
+            <Label fx:id="lblGlycemie" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-        <Label text="Température (°C) :" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <Label fx:id="lblTemperature" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    </GridPane>
-    <Separator/>
+            <Label text="Température (°C) :" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="label-field"/>
+            <Label fx:id="lblTemperature" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Separator/>
 
-    <Label text="RADIOS / IMAGERIE :" style="-fx-font-weight: bold;"/>
-    <TextArea fx:id="txtRadios" promptText="Lien ou description des radios..." prefHeight="80"/>
+        <Label text="RADIOS / IMAGERIE :" styleClass="label-section"/>
+        <TextArea fx:id="txtRadios" promptText="Lien ou description des radios..." prefHeight="80"/>
 
-    <Label text="SCANNER :" style="-fx-font-weight: bold;"/>
-    <TextArea fx:id="txtScanner" promptText="Résultats scanner..." prefHeight="80"/>
+        <Label text="SCANNER :" styleClass="label-section"/>
+        <TextArea fx:id="txtScanner" promptText="Résultats scanner..." prefHeight="80"/>
 
-    <Label text="ANALYSES BIOLOGIQUES :" style="-fx-font-weight: bold;"/>
-    <TextArea fx:id="txtAnalyses" promptText="Analyses sanguines, etc." prefHeight="80"/>
+        <Label text="ANALYSES BIOLOGIQUES :" styleClass="label-section"/>
+        <TextArea fx:id="txtAnalyses" promptText="Analyses sanguines, etc." prefHeight="80"/>
 
-    <Label text="DIAGNOSTIC FINAL :" style="-fx-font-weight: bold;"/>
-    <TextArea fx:id="txtDiagnostic" promptText="Diagnostic du médecin..." prefHeight="100"/>
+        <Label text="DIAGNOSTIC FINAL :" styleClass="label-section"/>
+        <TextArea fx:id="txtDiagnostic" promptText="Diagnostic du médecin..." prefHeight="100"/>
 
-    <HBox spacing="20" alignment="CENTER">
-        <Button text="💾 ENREGISTRER" onAction="#enregistrerDossier" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 10 30;"/>
-        <Button text="🔙 RETOUR" onAction="#retourAccueil" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-    </HBox>
-</VBox>
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="ENREGISTRER" onAction="#enregistrerDossier" styleClass="button-success" />
+            <Button text="RETOUR" onAction="#retourAccueil" styleClass="button-primary" />
+        </HBox>
+    </VBox>
+</ScrollPane>

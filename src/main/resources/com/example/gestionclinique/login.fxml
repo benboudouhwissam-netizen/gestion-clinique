@@ -9,7 +9,8 @@
       style="-fx-background-color: linear-gradient(to bottom, #f0f4f8, #e2e8f0);"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.gestionclinique.controllers.LoginController">
+      fx:controller="com.example.gestionclinique.controllers.LoginController"
+      stylesheets="@/css/clinique.css">
 
     <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
 
@@ -19,25 +20,24 @@
         </ImageView>
     </HBox>
 
-    <Label text="🏥 Sage Memorial Clinique" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-    <Label text="Espace réservé au personnel" style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d;"/>
-
+    <Label text="SAGE MEMORIAL CLINIQUE" styleClass="label-title"/>
+    <Label text="Espace réservé au personnel" styleClass="label-subtitle"/>
     <Separator/>
 
     <GridPane hgap="10" vgap="10" alignment="CENTER">
-        <Label text="Email :" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <TextField fx:id="txtEmail" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250" promptText="medecin@clinique.com"/>
+        <Label text="Email :" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="label-field" style="-fx-font-size: 16px;"/>
+        <TextField fx:id="txtEmail" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300" promptText="medecin@clinique.com" style="-fx-font-size: 16px; -fx-padding: 8px;"/>
 
-        <Label text="Mot de passe :" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <PasswordField fx:id="txtMotDePasse" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250"/>
+        <Label text="Mot de passe :" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="label-field" style="-fx-font-size: 16px;"/>
+        <PasswordField fx:id="txtMotDePasse" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300" style="-fx-font-size: 16px; -fx-padding: 8px;"/>
 
-        <Label text="Rôle :" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-        <ComboBox fx:id="cmbRole" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="250" />
+        <Label text="Rôle :" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="label-field" style="-fx-font-size: 16px;"/>
+        <ComboBox fx:id="cmbRole" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300" style="-fx-font-size: 16px; -fx-padding: 8px;" />
     </GridPane>
 
     <HBox spacing="20" alignment="CENTER">
-        <Button text="SE CONNECTER" onAction="#authentifier" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 30;"/>
-        <Button text="QUITTER" onAction="#quitter" style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-padding: 10 30;"/>
+        <Button text="SE CONNECTER" onAction="#authentifier" styleClass="button-primary" style="-fx-font-size: 16px; -fx-padding: 10 30;"/>
+        <Button text="QUITTER" onAction="#quitter" styleClass="button-danger" style="-fx-font-size: 16px; -fx-padding: 10 30;"/>
     </HBox>
 
     <Label fx:id="lblErreur" style="-fx-text-fill: red;"/>

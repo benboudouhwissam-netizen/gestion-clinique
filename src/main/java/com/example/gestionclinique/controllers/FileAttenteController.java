@@ -23,7 +23,6 @@ public class FileAttenteController {
 
     @FXML
     public void initialize() {
-        // Charger les données
         chargerConsultations();
     }
 
@@ -96,7 +95,6 @@ public class FileAttenteController {
             return;
         }
 
-        // Vérifier s'il existe des patients urgents avant celui sélectionné
         boolean urgentAvant = false;
         for (Consultation c : consultationsList) {
             if (c.getId() == selected.getId()) break;
@@ -165,6 +163,15 @@ public class FileAttenteController {
         long urgents = consultationsList.stream().filter(c -> c.getPriorite() == 1).count();
         long normaux = consultationsList.stream().filter(c -> c.getPriorite() == 2).count();
         lblStatistiques.setText("📊 File: " + consultationsList.size() + " | 🔴 Urgents: " + urgents + " | 🟢 Normaux: " + normaux);
+    }
+
+    @FXML
+    private void retourAccueil() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/accueil.fxml"));
+        Scene scene = new Scene(loader.load(), 900, 600);
+        Stage stage = (Stage) lblStatistiques.getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Accueil - Clinique");
     }
 
     private void showAlert(String title, String content, Alert.AlertType type) {

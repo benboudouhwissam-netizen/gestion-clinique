@@ -26,11 +26,9 @@ public class PatientController {
 
     @FXML
     public void initialize() {
-        // Charger les données au démarrage
         chargerDocteurs();
         chargerInfirmieres();
 
-        // Alerte pour cas urgent (CORRIGÉ)
         chkUrgent.selectedProperty().addListener((ObservableValue<? extends Boolean> obs, Boolean oldVal, Boolean newVal) -> {
             if (newVal) {
                 showAlert("⚠️ URGENT", "Ce patient sera marqué comme CAS URGENT", Alert.AlertType.WARNING);
@@ -125,7 +123,6 @@ public class PatientController {
                         if (!keys.next()) return false;
                         int newId = keys.getInt(1);
 
-                        // Insertion d'une consultation vide (ou avec constantes)
                         String sqlConsult = "INSERT INTO consultations (patient_id, tension_systolique, tension_diastolique, glycemie, temperature) VALUES (?,?,?,?,?)";
                         PreparedStatement pstmtConsult = conn.prepareStatement(sqlConsult);
                         pstmtConsult.setInt(1, newId);
@@ -197,7 +194,7 @@ public class PatientController {
 
     public void setPatientEnEdition(int id) {
         this.patientIdEdition = id;
-        chargerPatientPourEdition();   // charge les données existantes
+        chargerPatientPourEdition();   
     }
 
 

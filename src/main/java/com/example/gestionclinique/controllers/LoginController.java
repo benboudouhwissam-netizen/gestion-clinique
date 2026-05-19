@@ -49,7 +49,6 @@ public class LoginController {
                 String prenom = rs.getString("prenom");
                 userRole = role;
 
-                // ✅ Sauvegarde dans la session
                 SessionUtilisateur.setUtilisateur(userId, nom + " " + prenom, userRole);
 
                 // Redirection vers l'accueil

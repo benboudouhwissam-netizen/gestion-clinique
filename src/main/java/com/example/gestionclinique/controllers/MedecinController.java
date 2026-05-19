@@ -75,7 +75,6 @@ public class MedecinController {
                 txtAnalyses.setText(rs.getString("analyses"));
                 txtDiagnostic.setText(rs.getString("diagnostic"));
             } else {
-                // Créer un dossier vide
                 String insert = "INSERT INTO dossiers_medicaux (patient_id, medecin_id) VALUES (?, ?)";
                 PreparedStatement pstmt2 = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
                 pstmt2.setInt(1, patientId);

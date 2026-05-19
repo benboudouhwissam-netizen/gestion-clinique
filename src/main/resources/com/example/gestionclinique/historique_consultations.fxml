@@ -5,8 +5,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.HistoriqueController" style="-fx-padding: 20;">
-    <Label fx:id="lblPatient" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.gestionclinique.controllers.HistoriqueController"
+      styleClass="root" stylesheets="@/css/clinique.css"
+      style="-fx-padding: 20;">
+
+    <Label fx:id="lblPatient" styleClass="label-title"/>
     <Separator/>
 
     <TableView fx:id="tableViewHistorique" prefHeight="500">
@@ -45,6 +49,6 @@
     </TableView>
 
     <HBox spacing="20" alignment="CENTER">
-        <Button text="🔙 RETOUR" onAction="#retourAccueil" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 30;"/>
+        <Button text="RETOUR" onAction="#retourAccueil" styleClass="button-primary" />
     </HBox>
 </VBox>

@@ -11,7 +11,7 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");  // ← CORRIGÉ
+            Class.forName("com.mysql.cj.jdbc.Driver");  
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             throw new SQLException("Driver MySQL non trouvé !", e);
@@ -20,10 +20,10 @@ public class DatabaseConnection {
 
     public static void main(String[] args) {
         try (Connection conn = getConnection()) {
-            System.out.println("✅ Connexion réussie à la base clinique_db !");
+            System.out.println("Connexion réussie à la base clinique_db !");
             System.out.println("Base de données : " + conn.getCatalog());
         } catch (SQLException e) {
-            System.err.println("❌ Erreur : " + e.getMessage());
+            System.err.println("Erreur : " + e.getMessage());
         }
     }
 }

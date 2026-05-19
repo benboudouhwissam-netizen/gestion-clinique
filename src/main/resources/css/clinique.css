@@ -1,0 +1,167 @@
+/* ========== STYLES GÉNÉRAUX ========== */
+.root {
+    -fx-font-family: 'Segoe UI', 'Roboto', 'System', sans-serif;
+    -fx-background-color: #f0f4f8;
+}
+
+/* ========== LABELS ET TITRES ========== */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.label-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.label-section {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10 0 5 0;
+}
+
+/* ========== CHAMPS DE TEXTE ========== */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
+
+/* ========== BOUTONS ========== */
+.button {
+    -fx-background-radius: 5px;
+    -fx-padding: 10 20 10 20;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.button-primary {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button-success {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+}
+
+.button-success:hover {
+    -fx-background-color: #229954;
+}
+
+.button-danger {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: #c0392b;
+}
+
+.button-warning {
+    -fx-background-color: #e67e22;
+    -fx-text-fill: white;
+}
+
+.button-warning:hover {
+    -fx-background-color: #d35400;
+}
+
+.button-secondary {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* ========== TABLEAUX ========== */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #3498db;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #d9edf7;
+}
+
+/* ========== CHECKBOX ========== */
+.check-box {
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db;
+}
+
+/* ========== PROGRESS INDICATOR ========== */
+.progress-indicator {
+    -fx-progress-color: #3498db;
+}
+
+/* ========== ALERT / DIALOG ========== */
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #3498db;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

@@ -5,10 +5,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gestionclinique.controllers.FileAttenteController">
-    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.gestionclinique.controllers.FileAttenteController"
+      stylesheets="@/css/clinique.css"
+      style="-fx-padding: 20;">
 
-    <Label text="🏥 FILE D'ATTENTE - PRIORITÉ PATIENTS URGENTS" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="FILE D'ATTENTE - PRIORITÉ PATIENTS URGENTS" styleClass="label-title"/>
 
     <Separator/>
 
@@ -16,7 +18,7 @@
         <Label text="🔴 URGENT" style="-fx-text-fill: red; -fx-font-weight: bold;"/>
         <Label text="🟢 NORMAL" style="-fx-text-fill: green; -fx-font-weight: bold;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="🔄 RAFRAÎCHIR" onAction="#rafraichirListe"/>
+        <Button text="RAFRAÎCHIR" onAction="#rafraichirListe" styleClass="button-secondary"/>
     </HBox>
 
     <TableView fx:id="tableViewConsultations" prefHeight="400">
@@ -57,10 +59,11 @@
     <Separator/>
 
     <HBox spacing="20" alignment="CENTER">
-        <Button text="✅ CONSULTATION TERMINÉE" onAction="#terminerConsultation" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-padding: 10 20;"/>
-        <Button text="➕ NOUVEAU PATIENT" onAction="#nouveauPatient" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 20;"/>
-        <Button text="📊 TABLEAU DE BORD" onAction="#voirTableauBord" style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-padding: 10 20;"/>
+        <Button text="CONSULTATION TERMINÉE" onAction="#terminerConsultation" styleClass="button-success" />
+        <Button text="NOUVEAU PATIENT" onAction="#nouveauPatient" styleClass="button-primary" />
+        <Button text="TABLEAU DE BORD" onAction="#voirTableauBord" styleClass="button-secondary" />
+        <Button text="RETOUR" onAction="#retourAccueil" styleClass="button-secondary" />
     </HBox>
 
-    <Label fx:id="lblStatistiques" style="-fx-font-size: 12px;"/>
+    <Label fx:id="lblStatistiques" styleClass="label-subtitle"/>
 </VBox>

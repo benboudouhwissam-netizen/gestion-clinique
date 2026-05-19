@@ -82,7 +82,6 @@ public class HistoriqueController {
         alert.showAndWait();
     }
 
-    // Classe interne pour les lignes du tableau
     public static class ConsultationHistorique {
         private String dateConsultationFormatee;
         private String tensionFormatee;
@@ -91,7 +90,6 @@ public class HistoriqueController {
         private String diagnostic;
         private String statut;
 
-        // Getters et setters obligatoires pour PropertyValueFactory
         public String getDateConsultationFormatee() { return dateConsultationFormatee; }
         public void setDateConsultationFormatee(String d) { this.dateConsultationFormatee = d; }
         public String getTensionFormatee() { return tensionFormatee; }

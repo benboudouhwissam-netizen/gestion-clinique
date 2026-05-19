@@ -61,8 +61,20 @@ public class AccueilController {
 
     private void chargerPatients() {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id, nom, prenom FROM patients ORDER BY nom");
+            String sql;
+            if ("secretaire".equals(role)) {
+                // La secrétaire voit tous les patients (pour modification)
+                sql = "SELECT id, nom, prenom FROM patients ORDER BY nom";
+            } else {
+                // Infirmier et médecin : ne voient que les patients qui n'ont PAS de consultation TERMINEE
+                // (ou qui n'ont jamais eu de consultation, ou seulement EN_ATTENTE)
+                sql = "SELECT p.id, p.nom, p.prenom FROM patients p " +
+                        "LEFT JOIN consultations c ON p.id = c.patient_id AND c.statut = 'TERMINEE' " +
+                        "WHERE c.id IS NULL " +
+                        "ORDER BY p.nom";
+            }
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
             cmbPatients.getItems().clear();
             patientsMap.clear();
             while (rs.next()) {
@@ -96,7 +108,7 @@ public class AccueilController {
 
     private void ouvrirHistorique(int patientId, String patientNom) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/historique_consultations.fxml"));
-        Scene scene = new Scene(loader.load(), 1000, 600);
+        Scene scene = new Scene(loader.load(), 1000, 700);
         HistoriqueController ctrl = loader.getController();
         ctrl.setPatient(patientId, patientNom);
         Stage stage = (Stage) lblBienvenue.getScene().getWindow();
@@ -108,7 +120,7 @@ public class AccueilController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/patient_form.fxml"));
         Scene scene = new Scene(loader.load(), 900, 700);
         PatientController ctrl = loader.getController();
-        ctrl.setPatientEnEdition(patientId);  // nouvelle méthode
+        ctrl.setPatientEnEdition(patientId);
         Stage stage = (Stage) lblBienvenue.getScene().getWindow();
         stage.setScene(scene);
         stage.setTitle("Modifier patient - " + patientNom);
@@ -224,7 +236,7 @@ public class AccueilController {
 
     private void ouvrirConsultationInfirmier(int patientId, String patientNom) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/infirmier_consultation.fxml"));
-        Scene scene = new Scene(loader.load(), 800, 600);
+        Scene scene = new Scene(loader.load(), 800, 700);
         InfirmierController ctrl = loader.getController();
         ctrl.setPatient(patientId, patientNom, utilisateurId);
         Stage stage = (Stage) lblBienvenue.getScene().getWindow();
@@ -245,7 +257,7 @@ public class AccueilController {
     @FXML
     private void deconnexion() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gestionclinique/login.fxml"));
-        Scene scene = new Scene(loader.load(), 800, 600);
+        Scene scene = new Scene(loader.load(), 800, 700);
         Stage stage = (Stage) lblBienvenue.getScene().getWindow();
         stage.setScene(scene);
         stage.setTitle("Connexion - Clinique");
